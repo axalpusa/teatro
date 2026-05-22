@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Eón · One Page Documental Interactivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  
+  <style>
+    /* ========== ESTILOS MEJORADOS ========== */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Inter', sans-serif; background: #F5F0E8; color: #2c2b2b; line-height: 1.5; scroll-behavior: smooth; overflow-x: hidden; }
+    h1, h2, h3, .serif { font-family: 'Playfair Display', serif; font-weight: 600; }
+    
+    /* Variables de color - CONSERVADAS */
+    :root {
+      --color-primary: #1e3b4a;        /* Azul profundo */
+      --color-primary-dark: #152e3a;
+      --color-accent: #c87a5c;          /* Terracota */
+      --color-accent-hover: #b06248;
+      --color-accent-light: #e8c9bb;
+      --color-background: #F5F0E8;      /* Fondo general */
+      --color-surface: #ffffff;
+      --color-surface-alt: #faf8f6;
+      --color-text: #2c2b2b;
+      --color-text-light: #6b6a6a;
+      --color-border: #e5ddd5;
+      --shadow-sm: 0 12px 30px rgba(0,0,0,0.06);
+      --shadow-card: 0 20px 35px rgba(0,0,0,0.08);
+      --shadow-lg: 0 25px 50px rgba(0,0,0,0.12);
+      --transition: all 0.3s ease;
+    }
+    
+    /* Navbar mejorada - más elegante y con indicador activo */
+    .navbar { 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      background: rgba(255,255,255,0.96); 
+      backdrop-filter: blur(15px); 
+      z-index: 1000; 
+      padding: 0.8rem 2rem; 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      flex-wrap: wrap; 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+      transition: padding 0.3s ease, box-shadow 0.3s ease;
+    }
+    .navbar.scrolled {
+      padding: 0.5rem 2rem;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+    }
+    .logo { 
+      font-family: 'Playfair Display', serif; 
+      font-size: 1.8rem; 
+      font-weight: 700; 
+      color: var(--color-primary); 
+      letter-spacing: 1px;
+      transition: transform 0.3s ease;
+    }
+    .logo:hover { transform: scale(1.02); }
+    
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { 
+      text-decoration: none; 
+      color: var(--color-primary); 
+      font-weight: 500; 
+      position: relative; 
+      transition: color 0.3s;
+      padding: 0.5rem 0;
+    }
+    .nav-links a::after { 
+      content: ''; 
+      position: absolute; 
+      bottom: 0; 
+      left: 0; 
+      width: 0%; 
+      height: 2px; 
+      background: var(--color-accent); 
+      transition: width 0.3s ease; 
+    }
+    .nav-links a:hover { color: var(--color-accent); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-links a.active {
+      color: var(--color-accent);
+    }
+    .nav-links a.active::after {
+      width: 100%;
+    }
+    .menu-toggle { display: none; font-size: 1.7rem; background: none; border: none; color: var(--color-primary); cursor: pointer; transition: transform 0.2s; }
+    .menu-toggle:active { transform: scale(0.95); }
+    
+    /* Secciones - espaciado más armónico */
+    section { 
+      padding: 6rem 2rem; 
+      max-width: 1300px; 
+      margin: 0 auto; 
+      scroll-margin-top: 85px; 
+      position: relative; 
+    }
+    .section-title { 
+      font-size: 2.8rem; 
+      margin-bottom: 3rem; 
+      text-align: center; 
+      color: var(--color-primary); 
+      position: relative; 
+      letter-spacing: -0.02em; 
+    }
+    .section-title::after { 
+      content: ''; 
+      display: block; 
+      width: 70px; 
+      height: 4px; 
+      background: var(--color-accent); 
+      margin: 0.8rem auto 0; 
+      border-radius: 4px; 
+    }
+    
+    /* Hero - overlay más suave y mejor contraste de texto */
+    .hero { 
+      height: 100vh; 
+      min-height: 650px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      position: relative; 
+      color: white; 
+      text-align: center; 
+      padding: 0 1.5rem; 
+      overflow: hidden; 
+      background-size: cover; 
+      background-position: center;
+      background-attachment: fixed;
+    }
+    .hero::before { 
+      content: ''; 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: linear-gradient(135deg, rgba(30,59,74,0.8) 0%, rgba(44,82,102,0.7) 40%, rgba(176,137,104,0.6) 100%); 
+      z-index: 1; 
+    }
+    .hero-content { 
+      position: relative; 
+      z-index: 2; 
+      max-width: 800px; 
+      animation: fadeInUp 1s ease;
+      backdrop-filter: blur(2px);
+      padding: 2rem;
+      border-radius: 40px;
+    }
+    .hero h1 { 
+      font-size: clamp(2.8rem, 8vw, 5rem); 
+      margin-bottom: 1rem; 
+      text-shadow: 0 2px 20px rgba(0,0,0,0.4); 
+      letter-spacing: -0.02em;
+    }
+    .hero p { 
+      font-size: clamp(1rem, 4vw, 1.4rem); 
+      margin-bottom: 2rem; 
+      opacity: 0.95;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.3);
+    }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+    
+    /* Botones - foco visual mejorado */
+    .btn { 
+      background: var(--color-accent); 
+      color: white; 
+      padding: 0.9rem 2.2rem; 
+      border-radius: 50px; 
+      text-decoration: none; 
+      font-weight: 600; 
+      display: inline-block; 
+      transition: var(--transition); 
+      box-shadow: 0 8px 20px rgba(200,122,92,0.35); 
+      border: none; 
+      cursor: pointer;
+      letter-spacing: 0.3px;
+    }
+    .btn:hover { 
+      background: var(--color-accent-hover); 
+      transform: translateY(-3px); 
+      box-shadow: 0 12px 25px rgba(200,122,92,0.45); 
+    }
+    .btn:active { transform: translateY(0); }
+    
+    /* Timeline - microinteracciones y mejor legibilidad */
+    .timeline-vertical { position: relative; padding-left: 2rem; }
+    .timeline-vertical::before { 
+      content: ''; 
+      position: absolute; 
+      left: 30px; 
+      top: 20px; 
+      bottom: 20px; 
+      width: 3px; 
+      background: linear-gradient(to bottom, var(--color-accent), var(--color-primary), var(--color-accent)); 
+      border-radius: 3px; 
+    }
+    .timeline-item-v { 
+      display: flex; 
+      gap: 1.8rem; 
+      margin-bottom: 2.5rem; 
+      position: relative; 
+      opacity: 0; 
+      transform: translateX(-20px); 
+      transition: opacity 0.6s ease, transform 0.5s ease; 
+    }
+    .timeline-item-v.visible { opacity: 1; transform: translateX(0); }
+    .timeline-marker { flex-shrink: 0; width: 50px; display: flex; justify-content: center; }
+    .timeline-dot { 
+      width: 18px; 
+      height: 18px; 
+      background: var(--color-accent); 
+      border-radius: 50%; 
+      border: 3px solid white; 
+      box-shadow: 0 0 0 3px var(--color-accent); 
+      transition: all 0.3s;
+    }
+    .timeline-item-v:hover .timeline-dot {
+      transform: scale(1.3);
+      box-shadow: 0 0 0 5px var(--color-accent);
+    }
+    .timeline-card-v { 
+      flex: 1; 
+      background: var(--color-surface); 
+      border-radius: 24px; 
+      overflow: hidden; 
+      box-shadow: var(--shadow-sm); 
+      transition: all 0.3s; 
+    }
+    .timeline-card-v:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+    .timeline-img-v { width: 100%; height: 200px; object-fit: cover; transition: transform 0.5s ease; }
+    .timeline-card-v:hover .timeline-img-v { transform: scale(1.03); }
+    .timeline-content-v { padding: 1.5rem; }
+    .timeline-date-v { font-weight: 800; font-size: 1.3rem; color: var(--color-accent); margin-bottom: 0.5rem; }
+    
+    /* Video - overlay más intuitivo */
+    .video-container { 
+      position: relative; 
+      border-radius: 28px; 
+      overflow: hidden; 
+      box-shadow: var(--shadow-lg); 
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .video-container:hover { transform: scale(1.01); }
+    .video-thumbnail { width: 100%; display: block; transition: filter 0.3s; }
+    .video-overlay { 
+      position: absolute; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: rgba(0,0,0,0.45); 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      transition: background 0.3s; 
+    }
+    .video-overlay i { 
+      font-size: 5rem; 
+      color: white; 
+      text-shadow: 0 2px 15px rgba(0,0,0,0.5);
+      transition: transform 0.2s ease;
+    }
+    .video-container:hover .video-overlay { background: rgba(0,0,0,0.3); }
+    .video-container:hover .video-overlay i { transform: scale(1.1); }
+    .video-caption { text-align: center; margin-top: 1.2rem; color: var(--color-text-light); font-size: 0.9rem; }
+    
+    /* Juego - mejor jerarquía visual */
+    .game-preview { 
+      display: flex; 
+      flex-wrap: wrap; 
+      gap: 2.5rem; 
+      background: var(--color-surface); 
+      border-radius: 48px; 
+      padding: 2.5rem; 
+      align-items: center; 
+      box-shadow: var(--shadow-card);
+      transition: transform 0.3s;
+    }
+    .game-preview:hover { transform: translateY(-5px); }
+    .game-mockup { 
+      flex: 1 1 280px; 
+      min-height: 280px; 
+      border-radius: 28px; 
+      background-size: cover; 
+      background-position: center;
+      transition: transform 0.5s;
+    }
+    .game-info h3 { font-size: 2rem; margin-bottom: 1rem; color: var(--color-primary); }
+    .game-info p { margin-bottom: 1.5rem; color: var(--color-text-light); }
+    
+    /* Reportaje - énfasis en la interactividad */
+    .reportaje-destacado { 
+      background: var(--color-surface); 
+      border-radius: 32px; 
+      overflow: hidden; 
+      box-shadow: var(--shadow-card); 
+      cursor: pointer; 
+      transition: all 0.4s; 
+    }
+    .reportaje-destacado:hover { 
+      transform: translateY(-10px); 
+      box-shadow: var(--shadow-lg); 
+    }
+    .reportaje-hero-img { 
+      width: 100%; 
+      height: 340px; 
+      object-fit: cover; 
+      transition: transform 0.6s;
+    }
+    .reportaje-destacado:hover .reportaje-hero-img { transform: scale(1.02); }
+    .reportaje-texto { padding: 2rem; }
+    .reportaje-texto h3 { font-size: 1.8rem; margin-bottom: 0.8rem; color: var(--color-primary); }
+    .leer-mas { 
+      display: inline-block; 
+      margin-top: 1.2rem; 
+      font-weight: 600; 
+      color: var(--color-accent); 
+      border-bottom: 2px solid var(--color-accent); 
+      cursor: pointer;
+      transition: gap 0.3s;
+    }
+    .leer-mas:hover { gap: 0.5rem; letter-spacing: 0.3px; }
+    
+    /* Countdown - mejor contraste y feedback */
+    .countdown-section { 
+      background: linear-gradient(135deg, var(--color-primary) 0%, #1a3a48 100%); 
+      color: white; 
+      text-align: center; 
+      border-radius: 48px; 
+      padding: 3rem 2rem; 
+      box-shadow: var(--shadow-lg);
+      margin: 2rem auto;
+    }
+    .countdown-container { max-width: 900px; margin: 0 auto; }
+    .countdown-section .section-title { color: white; }
+    .countdown-section .section-title::after { background: var(--color-accent); }
+    
+    .countdown-timer { 
+      display: flex; 
+      justify-content: center; 
+      gap: 1.8rem; 
+      flex-wrap: wrap; 
+      margin: 2.5rem 0;
+    }
+    .countdown-box { 
+      background: rgba(255,255,255,0.15); 
+      backdrop-filter: blur(10px); 
+      border-radius: 24px; 
+      padding: 1.5rem 2rem; 
+      min-width: 120px; 
+      text-align: center; 
+      border: 1px solid rgba(255,255,255,0.25);
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+    .countdown-box:hover { 
+      transform: translateY(-5px); 
+      background: rgba(255,255,255,0.25); 
+      border-color: var(--color-accent);
+    }
+    .countdown-number { 
+      font-size: 3.8rem; 
+      font-weight: 800; 
+      font-family: 'Inter', monospace; 
+      color: white;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      line-height: 1.2;
+    }
+    .countdown-label { 
+      font-size: 0.85rem; 
+      text-transform: uppercase; 
+      letter-spacing: 3px; 
+      margin-top: 0.6rem; 
+      color: rgba(255,255,255,0.9);
+      font-weight: 500;
+    }
+    .countdown-event { 
+      font-size: 1.2rem; 
+      margin-top: 1.5rem; 
+      padding: 0.8rem 1.5rem;
+      background: rgba(0,0,0,0.2);
+      border-radius: 50px;
+      display: inline-block;
+      backdrop-filter: blur(5px);
+    }
+    
+    /* Galería - efecto de profundidad */
+    .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.8rem; }
+    .gallery-item { 
+      height: 300px; 
+      border-radius: 28px; 
+      background-size: cover; 
+      background-position: center; 
+      cursor: pointer; 
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1); 
+      box-shadow: var(--shadow-sm); 
+      position: relative; 
+      overflow: hidden; 
+    }
+    .gallery-item::before { 
+      content: '🔍'; 
+      position: absolute; 
+      bottom: 20px; 
+      right: 20px; 
+      background: rgba(0,0,0,0.7); 
+      color: white; 
+      width: 40px; 
+      height: 40px; 
+      border-radius: 50%; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 1.2rem; 
+      opacity: 0; 
+      transition: opacity 0.3s, transform 0.2s;
+      transform: translateY(10px);
+    }
+    .gallery-item:hover { 
+      transform: scale(1.02) translateY(-5px); 
+      box-shadow: var(--shadow-lg); 
+    }
+    .gallery-item:hover::before { 
+      opacity: 1; 
+      transform: translateY(0);
+    }
+    
+    /* Redes Sociales - más espacio y feedback */
+    .social-section { 
+      background: var(--color-surface-alt); 
+      text-align: center; 
+      border-radius: 48px; 
+      padding: 3rem 2rem; 
+      box-shadow: var(--shadow-sm); 
+      margin: 1rem auto; 
+    }
+    .social-icons { display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap; margin-top: 2rem; }
+    .social-icon-link { 
+      display: inline-flex; 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 0.8rem; 
+      text-decoration: none; 
+      color: var(--color-primary); 
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); 
+      font-weight: 500; 
+      padding: 0.5rem;
+    }
+    .social-icon-link i { font-size: 2.8rem; transition: all 0.3s; }
+    .social-icon-link span { font-size: 0.9rem; }
+    .social-icon-link:hover { 
+      transform: translateY(-8px); 
+      color: var(--color-accent); 
+    }
+    .social-icon-link:hover i { 
+      color: var(--color-accent); 
+      transform: scale(1.1) translateY(-3px); 
+    }
+    
+    /* Créditos - más cohesión */
+    .credits-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 2.5rem; }
+    .credit-card { 
+      background: var(--color-surface); 
+      border-radius: 32px; 
+      padding: 2rem 1.5rem; 
+      text-align: center; 
+      width: 240px; 
+      box-shadow: var(--shadow-card); 
+      transition: all 0.3s; 
+    }
+    .credit-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+    .credit-avatar { 
+      width: 100px; 
+      height: 100px; 
+      border-radius: 50%; 
+      margin: 0 auto 1.2rem; 
+      background-size: cover; 
+      background-position: center; 
+      border: 3px solid var(--color-accent);
+      transition: transform 0.3s;
+    }
+    .credit-card:hover .credit-avatar { transform: scale(1.02); }
+    
+    /* Footer */
+    footer { 
+      background: var(--color-primary); 
+      color: #f0e9df; 
+      padding: 2.5rem 2rem; 
+      text-align: center; 
+      margin-top: 2rem; 
+    }
+    .back-to-top { 
+      margin-top: 1.2rem; 
+      background: var(--color-accent); 
+      border: none; 
+      color: white; 
+      padding: 0.7rem 1.6rem; 
+      border-radius: 40px; 
+      cursor: pointer; 
+      transition: var(--transition);
+      font-weight: 500;
+    }
+    .back-to-top:hover { background: var(--color-accent-hover); transform: translateY(-3px); }
+    
+    /* Modales mejoradas */
+    .modal-overlay, .lightbox-modal, .generic-modal { 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: rgba(0,0,0,0.88); 
+      backdrop-filter: blur(8px); 
+      z-index: 2000; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      visibility: hidden; 
+      opacity: 0; 
+      transition: opacity 0.25s ease, visibility 0.25s; 
+    }
+    .modal-overlay.active, .lightbox-modal.active, .generic-modal.active { visibility: visible; opacity: 1; }
+    .modal-container { 
+      background: var(--color-surface); 
+      max-width: 900px; 
+      width: 90%; 
+      max-height: 85vh; 
+      border-radius: 40px; 
+      overflow-y: auto; 
+      box-shadow: var(--shadow-lg);
+      animation: fadeInScale 0.3s ease;
+    }
+    @keyframes fadeInScale {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    .modal-header { padding: 1.2rem 2rem; border-bottom: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: center; }
+    .modal-close, .lightbox-close { background: none; border: none; font-size: 2rem; cursor: pointer; color: var(--color-primary); transition: transform 0.2s; }
+    .modal-close:hover, .lightbox-close:hover { transform: scale(1.1); color: var(--color-accent); }
+    .modal-body { padding: 2rem; }
+    .modal-body img { width: 100%; border-radius: 28px; margin: 1rem 0; }
+    .lightbox-img { max-width: 90%; max-height: 85%; border-radius: 20px; box-shadow: var(--shadow-lg); }
+    .generic-modal-content { background: var(--color-surface); max-width: 450px; width: 85%; border-radius: 32px; padding: 2rem; text-align: center; }
+    .generic-modal-close { background: var(--color-accent); border: none; color: white; padding: 0.7rem 2rem; border-radius: 40px; cursor: pointer; margin-top: 1rem; font-weight: 600; transition: var(--transition); }
+    .generic-modal-close:hover { background: var(--color-accent-hover); transform: translateY(-2px); }
+    
+    @media (max-width: 768px) {
+      .menu-toggle { display: block; }
+      .nav-links { 
+        position: fixed; 
+        top: 70px; 
+        left: -100%; 
+        width: 75%; 
+        height: calc(100vh - 70px); 
+        background: rgba(255,255,255,0.98); 
+        flex-direction: column; 
+        align-items: center; 
+        padding: 2rem; 
+        transition: left 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1); 
+        z-index: 998; 
+        gap: 1.8rem; 
+        backdrop-filter: blur(10px);
+      }
+      .nav-links.active { left: 0; }
+      .timeline-vertical { padding-left: 0.5rem; }
+      .timeline-vertical::before { left: 20px; }
+      .countdown-timer { gap: 1rem; }
+      .countdown-box { padding: 1rem 1.2rem; min-width: 80px; }
+      .countdown-number { font-size: 2.2rem; }
+      .section-title { font-size: 2rem; }
+      section { padding: 3rem 1.2rem; }
+      .reportaje-hero-img { height: 220px; }
+      .hero { background-attachment: scroll; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== CONFIGURACIÓN CENTRALIZADA ==================== -->
+<script>
+  const CONFIG = {
+    colors: { 
+      primary: "#1e3b4a", accent: "#c87a5c", accentHover: "#b06248",
+      background: "#F5F0E8", surface: "#ffffff"
+    },
+    sectionTitles: {
+      timeline: "Línea de Tiempo", video: "Documental Visual", game: "El Juego",
+      reportaje: "Revista Digital", gallery: "Galería de Experiencias",
+      social: "Síguenos en Redes", credits: "Equipo Creativo"
+    },
+    hero: { 
+      title: "El Legado del Tiempo", 
+      subtitle: "Un viaje interactivo entre historia, juego y memoria visual.", 
+      buttonText: "Explorar recorrido", 
+      backgroundImage: "img/1080.jpg" 
+    },
+    timeline: [
+      { date: "2018", title: "Fundación", description: "Nace la idea de documentar experiencias a través de medios digitales.", image: "img/606.jpg" },
+      { date: "2020", title: "Primera expedición", description: "Viaje a los Alpes para capturar imágenes inmersivas.", image: "img/607.jpg" },
+      { date: "2023", title: "Lanzamiento del juego", description: "Se publica 'Ecos del Origen', aventura narrativa interactiva.", image: "img/608.jpg" },
+      { date: "2025", title: "Exposición global", description: "Más de 50 ciudades visitan la galería interactiva.", image: "img/609.jpg" }
+    ],
+    video: { thumbnail: "img/601.jpg", youtubeUrl: "https://www.youtube.com/watch?v=b39Nd9yXA2g&list=RDb39Nd9yXA2g&start_radio=1", caption: "🎬 Haz clic para ver el documental completo en YouTube" },
+    game: { title: "Ecos del Origen", description: "Explora ruinas ancestrales, resuelve enigmas y descubre una historia conmovedora.", buttonText: "🎮 Jugar ahora", image: "img/610.jpg" },
+    reportaje: {
+      title: "Crónicas del hielo: el deshielo revela secretos milenarios",
+      preview: "Un viaje al corazón de los glaciares, donde la ciencia y la memoria ancestral convergen.",
+      coverImage: "img/600.jpg",
+      readMoreText: "📖 Leer reportaje completo →",
+      modalImages: ["img/602.jpg", "img/604.jpg", "img/605.jpg"],
+      modalTexts: [
+        "En las profundidades del Ártico, el calentamiento global está dejando al descubierto artefactos y restos orgánicos que permanecieron congelados durante más de 5.000 años.",
+        "La misión permitió recuperar herramientas de madera, fibras textiles y vestigios de fauna prehistórica.",
+        "El equipo utilizó tecnología de modelado 3D para reconstruir asentamientos ancestrales."
+      ],
+      finalQuote: "“Lo que emerge del hielo es un mensaje para la humanidad”."
+    },
+    countdown: { targetDate: "2026-06-15T16:00:00", eventText: "📅 15 de Junio de 2026 - 16:00 hrs · Centro de Artes Eón", title: "Próxima Experiencia Física" },
+    gallery: [
+      "img/611.jpg",
+      "img/1080.jpg",
+      "img/400.jpg",
+      "img/401.jpg"
+    ],
+    socialLinks: [
+      { platform: "Instagram", icon: "fab fa-instagram", url: "https://instagram.com" },
+      { platform: "X", icon: "fab fa-x", url: "https://twitter.com" },
+      { platform: "YouTube", icon: "fab fa-youtube", url: "https://youtube.com" },
+      { platform: "Facebook", icon: "fab fa-facebook", url: "https://facebook.com" }
+    ],
+    team: [
+      { name: "Elena Vargas", role: "Dirección creativa", bio: "Visión artística y narrativa.", avatar: "img/68.jpg" },
+      { name: "Mateo Ruiz", role: "Desarrollador", bio: "Arquitectura interactiva.", avatar: "img/32.jpg" },
+      { name: "Sofía León", role: "Investigación", bio: "Documentación y archivo.", avatar: "img/44.jpg" }
+    ],
+    footer: { email: "contacto@cronica-interactiva.com", copyright: "© 2026 Crónica Interactiva. Todos los derechos reservados." },
+    navLinks: [
+      { id: "inicio", name: "Inicio" }, { id: "timeline", name: "Línea" }, { id: "video", name: "Video" },
+      { id: "juego", name: "Juego" }, { id: "reportaje", name: "Revista" }, { id: "countdown", name: "Evento" },
+      { id: "galeria", name: "Galería" }, { id: "redes", name: "Redes" }, { id: "creditos", name: "Créditos" }
+    ]
+  };
+</script>
+
+<!-- ESTRUCTURA HTML (sin cambios en el marcado principal) -->
+<nav class="navbar"><div class="logo">CRÓNICA</div><button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button><ul class="nav-links" id="navLinks"></ul></nav>
+
+<section id="inicio" class="hero" style="background-image: url('img/1080.jpg');"><div class="hero-content"><h1 id="heroTitle"></h1><p id="heroSubtitle"></p><a href="#timeline" class="btn" id="heroBtn"></a></div></section>
+
+<section id="timeline"><h2 class="section-title" id="timelineTitle"></h2><div class="timeline-vertical" id="timelineContainer"></div></section>
+<section id="video"><h2 class="section-title" id="videoTitle"></h2><div class="video-container" id="videoContainer"><img class="video-thumbnail" id="videoThumbnail"><div class="video-overlay"><i class="fab fa-youtube"></i></div></div><p class="video-caption" id="videoCaption"></p></section>
+<section id="juego"><h2 class="section-title" id="gameSectionTitle"></h2><div class="game-preview"><div class="game-mockup" id="gameImage"></div><div class="game-info"><h3 id="gameTitle"></h3><p id="gameDesc"></p><a href="#" class="btn" id="gameBtn"></a></div></div></section>
+<section id="reportaje"><h2 class="section-title" id="reportajeSectionTitle"></h2><div class="reportaje-destacado" id="openModalBtn"><img class="reportaje-hero-img" id="reportajeImg"><div class="reportaje-texto"><h3 id="reportajeTitulo"></h3><p id="reportajePreview"></p><span class="leer-mas" id="readMoreText"></span></div></div></section>
+<section id="countdown" class="countdown-section"><div class="countdown-container"><h2 class="section-title" id="countdownTitle"></h2><div class="countdown-timer"><div class="countdown-box"><div class="countdown-number" id="days">00</div><div class="countdown-label">Días</div></div><div class="countdown-box"><div class="countdown-number" id="hours">00</div><div class="countdown-label">Horas</div></div><div class="countdown-box"><div class="countdown-number" id="minutes">00</div><div class="countdown-label">Minutos</div></div><div class="countdown-box"><div class="countdown-number" id="seconds">00</div><div class="countdown-label">Segundos</div></div></div><p class="countdown-event" id="countdownEvent"></p></div></section>
+<section id="galeria"><h2 class="section-title" id="galleryTitle"></h2><div class="gallery-grid" id="galleryGrid"></div></section>
+<section id="redes" class="social-section"><h2 class="section-title" id="socialTitle"></h2><div class="social-icons" id="socialIcons"></div></section>
+<section id="creditos"><h2 class="section-title" id="creditsTitle"></h2><div class="credits-grid" id="teamGrid"></div></section>
+
+<footer><p id="footerEmail"></p><p id="footerCopyright"></p><button class="back-to-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑ Volver arriba</button></footer>
+
+<!-- Modales -->
+<div id="reportajeModal" class="modal-overlay"><div class="modal-container"><div class="modal-header"><h2><i class="fas fa-newspaper"></i> Reportaje Exclusivo</h2><button class="modal-close" id="closeModalBtn">&times;</button></div><div class="modal-body" id="modalBody"></div></div></div>
+<div id="lightboxModal" class="lightbox-modal"><button class="lightbox-close">&times;</button><img class="lightbox-img" src=""></div>
+<div id="genericModal" class="generic-modal"><div class="generic-modal-content"><p id="modalMessage"></p><button class="generic-modal-close">Cerrar</button></div></div>
+
+<script>
+  (function() {
+    // Aplicar colores (sin cambios)
+    const root = document.documentElement.style;
+    root.setProperty('--color-primary', CONFIG.colors.primary);
+    root.setProperty('--color-accent', CONFIG.colors.accent);
+    root.setProperty('--color-accent-hover', CONFIG.colors.accentHover);
+    root.setProperty('--color-background', CONFIG.colors.background);
+    root.setProperty('--color-surface', CONFIG.colors.surface);
+    document.body.style.backgroundColor = CONFIG.colors.background;
+    
+    // Hero
+    document.getElementById('heroTitle').innerText = CONFIG.hero.title;
+    document.getElementById('heroSubtitle').innerText = CONFIG.hero.subtitle;
+    document.getElementById('heroBtn').innerText = CONFIG.hero.buttonText;
+    
+    // Títulos
+    document.getElementById('timelineTitle').innerText = CONFIG.sectionTitles.timeline;
+    document.getElementById('videoTitle').innerText = CONFIG.sectionTitles.video;
+    document.getElementById('gameSectionTitle').innerText = CONFIG.sectionTitles.game;
+    document.getElementById('reportajeSectionTitle').innerText = CONFIG.sectionTitles.reportaje;
+    document.getElementById('galleryTitle').innerText = CONFIG.sectionTitles.gallery;
+    document.getElementById('socialTitle').innerText = CONFIG.sectionTitles.social;
+    document.getElementById('creditsTitle').innerText = CONFIG.sectionTitles.credits;
+    document.getElementById('countdownTitle').innerText = CONFIG.countdown.title;
+    document.getElementById('countdownEvent').innerText = CONFIG.countdown.eventText;
+    
+    // Timeline
+    const timelineContainer = document.getElementById('timelineContainer');
+    CONFIG.timeline.forEach(item => {
+      const div = document.createElement('div');
+      div.className = 'timeline-item-v';
+      div.innerHTML = `<div class="timeline-marker"><div class="timeline-dot"></div></div><div class="timeline-card-v"><img class="timeline-img-v" src="${item.image}" loading="lazy" onerror="this.style.backgroundColor='#d9cdb8'"><div class="timeline-content-v"><div class="timeline-date-v">${item.date}</div><h3>${item.title}</h3><p>${item.description}</p></div></div>`;
+      timelineContainer.appendChild(div);
+    });
+    
+    // Video
+    document.getElementById('videoThumbnail').src = CONFIG.video.thumbnail;
+    document.getElementById('videoCaption').innerText = CONFIG.video.caption;
+    document.getElementById('videoContainer').onclick = () => window.open(CONFIG.video.youtubeUrl, '_blank');
+    
+    // Juego
+    document.getElementById('gameTitle').innerText = CONFIG.game.title;
+    document.getElementById('gameDesc').innerText = CONFIG.game.description;
+    document.getElementById('gameImage').style.backgroundImage = `url('${CONFIG.game.image}')`;
+    document.getElementById('gameBtn').innerText = CONFIG.game.buttonText;
+    
+    // Reportaje
+    document.getElementById('reportajeImg').src = CONFIG.reportaje.coverImage;
+    document.getElementById('reportajeTitulo').innerText = CONFIG.reportaje.title;
+    document.getElementById('reportajePreview').innerText = CONFIG.reportaje.preview;
+    document.getElementById('readMoreText').innerHTML = `<i class="fas fa-expand-alt"></i> ${CONFIG.reportaje.readMoreText}`;
+    
+    // Modal reportaje
+    const modalBody = document.getElementById('modalBody');
+    let modalHtml = `<img src="${CONFIG.reportaje.modalImages[0]}" alt="Reportaje"><h3>${CONFIG.reportaje.title}</h3>`;
+    CONFIG.reportaje.modalTexts.forEach((text, i) => {
+      if(i > 0) modalHtml += `<img src="${CONFIG.reportaje.modalImages[i]}" alt="Reportaje">`;
+      modalHtml += `<p>${text}</p>`;
+    });
+    modalHtml += `<p style="font-style:italic; border-left:4px solid var(--color-accent); padding-left:1rem;">${CONFIG.reportaje.finalQuote}</p>`;
+    modalBody.innerHTML = modalHtml;
+    
+    // Galería
+    const galleryGrid = document.getElementById('galleryGrid');
+    CONFIG.gallery.forEach(img => { const item = document.createElement('div'); item.className = 'gallery-item'; item.style.backgroundImage = `url('${img}')`; item.setAttribute('data-fullimg', img); galleryGrid.appendChild(item); });
+    
+    // Redes sociales
+    const socialContainer = document.getElementById('socialIcons');
+    CONFIG.socialLinks.forEach(social => { const a = document.createElement('a'); a.href = social.url; a.target = '_blank'; a.className = 'social-icon-link'; a.innerHTML = `<i class="${social.icon}"></i><span>${social.platform}</span>`; socialContainer.appendChild(a); });
+    
+    // Equipo
+    const teamGrid = document.getElementById('teamGrid');
+    CONFIG.team.forEach(member => { const card = document.createElement('div'); card.className = 'credit-card'; card.innerHTML = `<div class="credit-avatar" style="background-image: url('${member.avatar}');"></div><h3>${member.name}</h3><p>${member.role}</p><small>${member.bio}</small>`; teamGrid.appendChild(card); });
+    
+    // Footer
+    document.getElementById('footerEmail').innerHTML = `<i class="fas fa-envelope"></i> ${CONFIG.footer.email}`;
+    document.getElementById('footerCopyright').innerText = CONFIG.footer.copyright;
+    
+    // Navegación con indicador activo y cierre de menú móvil
+    const navLinks = document.getElementById('navLinks');
+    navLinks.innerHTML = CONFIG.navLinks.map(link => `<li><a href="#${link.id}">${link.name}</a></li>`).join('');
+    
+    // Función para resaltar el enlace activo
+    function setActiveLink() {
+      const sections = document.querySelectorAll('section');
+      const navAnchors = document.querySelectorAll('.nav-links a');
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 100;
+        const sectionBottom = sectionTop + section.offsetHeight;
+        if (window.scrollY >= sectionTop && window.scrollY < sectionBottom) {
+          current = section.getAttribute('id');
+        }
+      });
+      navAnchors.forEach(anchor => {
+        anchor.classList.remove('active');
+        if (anchor.getAttribute('href') === `#${current}`) {
+          anchor.classList.add('active');
+        }
+      });
+    }
+    window.addEventListener('scroll', setActiveLink);
+    setActiveLink();
+    
+    // Efecto de scroll en navbar
+    const navbar = document.querySelector('.navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    });
+    
+    // Menú móvil y cierre al hacer click en un enlace
+    const menuToggle = document.getElementById('menuToggle');
+    const navMenu = document.getElementById('navLinks');
+    function closeMenu() { navMenu.classList.remove('active'); document.body.style.overflow = ''; }
+    function openMenu() { navMenu.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    if(menuToggle) menuToggle.addEventListener('click', (e) => { e.stopPropagation(); navMenu.classList.contains('active') ? closeMenu() : openMenu(); });
+    
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const hash = this.getAttribute('href');
+        if(hash && hash !== '#') {
+          const target = document.querySelector(hash);
+          if(target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); closeMenu(); }
+        }
+      });
+    });
+    
+    // Animación timeline con IntersectionObserver mejorado
+    const timelineItems = document.querySelectorAll('.timeline-item-v');
+    const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add('visible'); }); }, { threshold: 0.2, rootMargin: "0px 0px -50px 0px" });
+    timelineItems.forEach(i => observer.observe(i));
+    
+    // Modales
+    const modal = document.getElementById('reportajeModal');
+    const openBtn = document.getElementById('openModalBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    function openReportModal() { modal.classList.add('active'); document.body.style.overflow = 'hidden'; }
+    function closeReportModal() { modal.classList.remove('active'); document.body.style.overflow = ''; }
+    if(openBtn) openBtn.addEventListener('click', openReportModal);
+    if(closeModalBtn) closeModalBtn.addEventListener('click', closeReportModal);
+    if(modal) modal.addEventListener('click', (e) => { if(e.target === modal) closeReportModal(); });
+    
+    // Lightbox con cierre con tecla ESC y mejor UX
+    const lightbox = document.getElementById('lightboxModal');
+    const lightboxImg = lightbox.querySelector('.lightbox-img');
+    const lightboxClose = lightbox.querySelector('.lightbox-close');
+    document.querySelectorAll('.gallery-item').forEach(item => { item.addEventListener('click', () => { const full = item.getAttribute('data-fullimg'); if(full) { lightboxImg.src = full; lightbox.classList.add('active'); document.body.style.overflow = 'hidden'; } }); });
+    function closeLightbox() { lightbox.classList.remove('active'); document.body.style.overflow = ''; }
+    if(lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+    if(lightbox) lightbox.addEventListener('click', (e) => { if(e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if(e.key === 'Escape') { closeLightbox(); closeReportModal(); closeGenericModal(); } });
+    
+    // Modal genérico
+    const genericModal = document.getElementById('genericModal');
+    const modalMessageSpan = document.getElementById('modalMessage');
+    const genericClose = document.querySelector('.generic-modal-close');
+    function closeGenericModal() { genericModal.classList.remove('active'); document.body.style.overflow = ''; }
+    window.showModalMessage = function(msg) { modalMessageSpan.innerText = msg; genericModal.classList.add('active'); document.body.style.overflow = 'hidden'; };
+    if(genericClose) genericClose.addEventListener('click', closeGenericModal);
+    if(genericModal) genericModal.addEventListener('click', (e) => { if(e.target === genericModal) closeGenericModal(); });
+    
+    // Botón juego con mensaje amigable
+    document.getElementById('gameBtn').addEventListener('click', (e) => { e.preventDefault(); showModalMessage('🎮 Demo interactiva: Próximamente la aventura completa.'); });
+    
+    // Contador regresivo
+    function updateCountdown() {
+      const target = new Date(CONFIG.countdown.targetDate);
+      const now = new Date();
+      const diff = target - now;
+      if(diff <= 0) { ['days','hours','minutes','seconds'].forEach(id => document.getElementById(id).innerText='00'); return; }
+      document.getElementById('days').innerText = String(Math.floor(diff/(1000*60*60*24))).padStart(2,'0');
+      document.getElementById('hours').innerText = String(Math.floor((diff%(86400000))/3600000)).padStart(2,'0');
+      document.getElementById('minutes').innerText = String(Math.floor((diff%3600000)/60000)).padStart(2,'0');
+      document.getElementById('seconds').innerText = String(Math.floor((diff%60000)/1000)).padStart(2,'0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    
+    // Lazy loading opcional para imágenes (ya tienen loading="lazy" en timeline)
+  })();
+</script>
+</body>
+</html>

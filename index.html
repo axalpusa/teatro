@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Eón - Documental interactivo: Un viaje entre historia, juego y memoria visual">
+  <meta name="theme-color" content="#1e3b4a">
+  <title>Eón · One Page Documental Interactivo</title>
+  
+  <!-- Precargas críticas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" href="img/1080.jpg" as="image" media="(min-width: 768px)">
+  
+  <!-- Fuentes -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+  
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+
+  <!-- ==================== NAVEGACIÓN ==================== -->
+  <nav class="navbar">
+    <div class="logo">CRÓNICA</div>
+    <button class="menu-toggle" aria-label="Menú de navegación">
+      <i class="fas fa-bars"></i>
+    </button>
+    <ul class="nav-links"></ul>
+  </nav>
+
+  <!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+  <main>
+    <!-- Hero / Inicio -->
+    <section id="inicio" class="hero">
+      <div class="hero-content">
+        <h1 class="hero-title"></h1>
+        <p class="hero-subtitle"></p>
+        <a href="#timeline" class="btn hero-btn"></a>
+      </div>
+    </section>
+
+    <!-- Timeline -->
+    <section id="timeline">
+      <h2 class="section-title timeline-section-title"></h2>
+      <div class="timeline-vertical"></div>
+    </section>
+
+    <!-- Video Documental -->
+    <section id="video">
+      <h2 class="section-title video-section-title"></h2>
+      <div class="video-container">
+        <img class="video-thumbnail" alt="Video thumbnail">
+        <div class="video-overlay">
+          <i class="fab fa-youtube"></i>
+        </div>
+      </div>
+      <p class="video-caption"></p>
+    </section>
+
+    <!-- Juego -->
+    <section id="juego">
+      <h2 class="section-title game-section-title"></h2>
+      <div class="game-preview">
+        <div class="game-mockup"></div>
+        <div class="game-info">
+          <h3 class="game-title"></h3>
+          <p class="game-description"></p>
+          <a href="#" class="btn game-btn"></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reportaje / Revista Digital -->
+    <section id="reportaje">
+      <h2 class="section-title reportaje-section-title"></h2>
+      <div class="reportaje-destacado" id="openReportajeModal">
+        <img class="reportaje-hero-img" alt="Reportaje destacado">
+        <div class="reportaje-texto">
+          <h3 class="reportaje-title"></h3>
+          <p class="reportaje-preview"></p>
+          <span class="leer-mas"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Countdown / Evento -->
+    <section id="countdown" class="countdown-section">
+      <div class="countdown-container">
+        <h2 class="section-title countdown-title"></h2>
+        <div class="countdown-timer">
+          <div class="countdown-box">
+            <div class="countdown-number" id="days">00</div>
+            <div class="countdown-label">Días</div>
+          </div>
+          <div class="countdown-box">
+            <div class="countdown-number" id="hours">00</div>
+            <div class="countdown-label">Horas</div>
+          </div>
+          <div class="countdown-box">
+            <div class="countdown-number" id="minutes">00</div>
+            <div class="countdown-label">Minutos</div>
+          </div>
+          <div class="countdown-box">
+            <div class="countdown-number" id="seconds">00</div>
+            <div class="countdown-label">Segundos</div>
+          </div>
+        </div>
+        <p class="countdown-event"></p>
+      </div>
+    </section>
+
+    <!-- Galería -->
+    <section id="galeria">
+      <h2 class="section-title gallery-title"></h2>
+      <div class="gallery-grid"></div>
+    </section>
+
+    <!-- Redes Sociales -->
+    <section id="redes" class="social-section">
+      <h2 class="section-title social-title"></h2>
+      <div class="social-icons"></div>
+    </section>
+
+    <!-- Créditos / Equipo -->
+    <section id="creditos">
+      <h2 class="section-title credits-title"></h2>
+      <div class="credits-grid"></div>
+    </section>
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer>
+    <p class="footer-email"></p>
+    <p class="footer-copyright"></p>
+    <button class="back-to-top" aria-label="Volver al inicio">
+      ↑ Volver arriba
+    </button>
+  </footer>
+
+  <!-- ==================== MODALES ==================== -->
+  <!-- Modal Reportaje -->
+  <div id="reportajeModal" class="modal-overlay">
+    <div class="modal-container">
+      <div class="modal-header">
+        <h2><i class="fas fa-newspaper"></i> Reportaje Exclusivo</h2>
+        <button class="modal-close" aria-label="Cerrar modal">&times;</button>
+      </div>
+      <div class="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Modal Lightbox -->
+  <div id="lightboxModal" class="lightbox-modal">
+    <button class="lightbox-close" aria-label="Cerrar lightbox">&times;</button>
+    <img class="lightbox-img" src="" alt="Imagen ampliada">
+  </div>
+
+  <!-- Modal Genérico -->
+  <div id="genericModal" class="generic-modal">
+    <div class="generic-modal-content">
+      <p id="modalMessage"></p>
+      <button class="generic-modal-close" type="button">Cerrar</button>
+    </div>
+  </div>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/components/navbar.js"></script>
+  <script src="js/components/hero.js"></script>
+  <script src="js/components/timeline.js"></script>
+  <script src="js/components/video.js"></script>
+  <script src="js/components/game.js"></script>
+  <script src="js/components/reportaje.js"></script>
+  <script src="js/components/countdown.js"></script>
+  <script src="js/components/gallery.js"></script>
+  <script src="js/components/social.js"></script>
+  <script src="js/components/credits.js"></script>
+  <script src="js/components/footer.js"></script>
+  <script src="js/app.js"></script>
+
+</body>
+</html>
