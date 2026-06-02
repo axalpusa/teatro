@@ -53,13 +53,15 @@ class App {
         { name: 'navbar', class: NavbarComponent },
         { name: 'hero', class: HeroComponent },
         { name: 'timeline', class: TimelineComponent },
-        { name: 'video', class: VideoComponent },
-        { name: 'game', class: GameComponent },
+        { name: 'case', class: CaseComponent },
         { name: 'reportaje', class: ReportajeComponent },
+        { name: 'game', class: GameComponent },
+        { name: 'comic', class: ComicComponent },      // NUEVO
         { name: 'countdown', class: CountdownComponent },
         { name: 'gallery', class: GalleryComponent },
         { name: 'social', class: SocialComponent },
         { name: 'credits', class: CreditsComponent },
+        { name: 'contact', class: ContactComponent },  // NUEVO
         { name: 'footer', class: FooterComponent }
       ];
   
