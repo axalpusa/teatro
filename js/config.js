@@ -167,8 +167,7 @@ const CONFIG = {
   // Redes sociales
   socialLinks: [
     { platform: "TikTok", icon: "fab fa-tiktok", url: "https://www.tiktok.com/@bajo_el_telon" },
-    { platform: "Facebook", icon: "fab fa-facebook", url: "https://facebook.com" },
-    { platform: "Instagram", icon: "fab fa-instagram", url: "https://instagram.com" }
+    { platform: "Facebook", icon: "fab fa-facebook", url: "https://www.facebook.com/share/1CkdxDztSn/?mibextid=wwXIfr" }
   ],
 
   // Equipo creativo
@@ -195,12 +194,12 @@ const CONFIG = {
   navLinks: [
     { id: "inicio", name: "Inicio" },
     { id: "timeline", name: "Línea de tiempo" },
-    { id: "el-caso", name: "El caso" },
+    { id: "el-caso", name: "Caso" },
     { id: "reportaje", name: "Reportaje" },
     { id: "gamificacion", name: "Gamificación" },
     { id: "comic", name: "Comic" },
-    { id: "countdown", name: "Conteo para experiencia física" },
-    { id: "galeria", name: "Galería de fotos" },
+    { id: "countdown", name: "Experiencia" },
+    { id: "galeria", name: "Galería" },
     { id: "redes", name: "Redes" },
     { id: "creditos", name: "Créditos" },
     { id: "contact", name: "Contàctanos" }
