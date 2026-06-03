@@ -1,12 +1,14 @@
 /**
  * APLICACIÓN PRINCIPAL
  * Inicializa todos los componentes y configura la aplicación
+ * Incluye sistema de animaciones scroll-reveal estilo macOS
  */
 class App {
     constructor() {
       this.components = {};
       this.initialized = false;
       this.escapeHandler = null;
+      this.scrollObserver = null;
     }
   
     async init() {
@@ -16,7 +18,7 @@ class App {
       }
   
       try {
-        console.log('🚀 Inicializando Eón - Documental Interactivo...');
+        console.log('🚀 Inicializando Bajo el Telón...');
   
         // 1. Aplicar colores y tema
         this.applyTheme();
@@ -29,11 +31,14 @@ class App {
   
         // 4. Asegurar que el modal genérico funcione correctamente
         this.ensureGenericModalWorks();
+
+        // 5. Inicializar animaciones scroll-reveal macOS-style
+        this.initScrollRevealAnimations();
   
-        // 5. Marcar como inicializado
+        // 6. Marcar como inicializado
         this.initialized = true;
   
-        // 6. Evento de aplicación lista
+        // 7. Evento de aplicación lista
         document.dispatchEvent(new CustomEvent('app:ready'));
         
         console.log('✅ Aplicación inicializada correctamente');
@@ -56,12 +61,12 @@ class App {
         { name: 'case', class: CaseComponent },
         { name: 'reportaje', class: ReportajeComponent },
         { name: 'game', class: GameComponent },
-        { name: 'comic', class: ComicComponent },      // NUEVO
+        { name: 'comic', class: ComicComponent },
         { name: 'countdown', class: CountdownComponent },
         { name: 'gallery', class: GalleryComponent },
         { name: 'social', class: SocialComponent },
         { name: 'credits', class: CreditsComponent },
-        { name: 'contact', class: ContactComponent },  // NUEVO
+        { name: 'contact', class: ContactComponent },
         { name: 'footer', class: FooterComponent }
       ];
   
@@ -74,6 +79,62 @@ class App {
           console.error(`Error en ${component.name}:`, error);
         }
       }
+    }
+
+    /**
+     * Sistema de animaciones scroll-reveal al estilo macOS
+     * Usa IntersectionObserver para activar animaciones suaves con blur
+     */
+    initScrollRevealAnimations() {
+      // Seleccionar elementos para animar
+      const revealSelectors = [
+        '.section-title',
+        '.timeline-card-v',
+        '.case-content',
+        '.reportaje-destacado',
+        '.game-preview',
+        '.comic-container',
+        '.countdown-box',
+        '.gallery-item',
+        '.credit-card',
+        '.contact-container',
+        '.contact-info',
+        '.case-stat-card',
+        '.comic-page-preview'
+      ];
+
+      const elements = document.querySelectorAll(revealSelectors.join(', '));
+
+      this.scrollObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Add a small stagger delay based on element index within its parent
+            const parent = entry.target.parentElement;
+            if (parent) {
+              const siblings = parent.querySelectorAll(':scope > ' + entry.target.tagName.toLowerCase() + '.' + Array.from(entry.target.classList).join('.'));
+              const index = Array.from(siblings).indexOf(entry.target);
+              if (index > 0) {
+                entry.target.style.transitionDelay = `${index * 0.06}s`;
+              }
+            }
+            
+            entry.target.classList.add('is-visible');
+            // Stop observing once visible
+            this.scrollObserver.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      elements.forEach((el) => {
+        // Don't re-animate hero elements
+        if (el.closest('.hero')) return;
+        
+        el.classList.add('scroll-reveal');
+        this.scrollObserver.observe(el);
+      });
     }
   
     ensureGenericModalWorks() {
@@ -141,8 +202,8 @@ class App {
           font-family: 'Inter', sans-serif;
         ">
           <div>
-            <h2 style="color: #c87a5c; margin-bottom: 1rem;">⚠️ Error al cargar</h2>
-            <p style="color: #2c2b2b; margin-bottom: 2rem;">
+            <h2 style="color: #D79A1D; margin-bottom: 1rem;">⚠️ Error al cargar</h2>
+            <p style="color: #121212; margin-bottom: 2rem;">
               Ha ocurrido un error al inicializar la aplicación.<br>
               Por favor, verifica tu conexión e intenta recargar.
             </p>
@@ -150,7 +211,7 @@ class App {
               onclick="location.reload()"
               style="
                 padding: 1rem 2rem;
-                background: #1e3b4a;
+                background: #5B311B;
                 color: white;
                 border: none;
                 border-radius: 50px;
@@ -170,6 +231,11 @@ class App {
       // Remover listener de Escape
       if (this.escapeHandler) {
         document.removeEventListener('keydown', this.escapeHandler);
+      }
+
+      // Desconectar observer
+      if (this.scrollObserver) {
+        this.scrollObserver.disconnect();
       }
       
       // Limpiar componentes

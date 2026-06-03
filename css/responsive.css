@@ -16,6 +16,12 @@
     .countdown-number {
       font-size: 2.8rem;
     }
+
+    #creditos,
+    #contact {
+      border-radius: var(--border-radius-lg);
+      padding: 3rem 1.5rem;
+    }
   }
   
   /* Móvil */
@@ -31,14 +37,15 @@
       left: -100%;
       width: 75%;
       height: calc(100vh - var(--navbar-height));
-      background: rgba(255,255,255,0.98);
+      background: rgba(245, 240, 232, 0.96);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
       flex-direction: column;
       align-items: center;
       padding: 2rem;
-      transition: left 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      transition: left 0.4s cubic-bezier(0.22, 1, 0.36, 1);
       z-index: 998;
       gap: 1.8rem;
-      backdrop-filter: blur(10px);
     }
     
     .nav-links.active {
@@ -134,11 +141,47 @@
     .modal-container {
       width: 95%;
       max-height: 90vh;
-      border-radius: 24px;
+      border-radius: 16px;
     }
     
     .modal-body {
       padding: 1.5rem;
+    }
+
+    /* Case */
+    .case-content {
+      flex-direction: column;
+      padding: 1.5rem;
+    }
+
+    .case-stat-value {
+      font-size: 1.4rem;
+    }
+
+    .case-stat-card {
+      padding: 0.8rem 1rem;
+    }
+
+    /* Comic */
+    .comic-preview {
+      flex-direction: column;
+    }
+
+    .comic-pages-preview {
+      justify-content: center;
+    }
+
+    /* Contact */
+    .contact-container {
+      flex-direction: column;
+    }
+
+    /* Dark sections */
+    #creditos,
+    #contact {
+      border-radius: var(--border-radius-md);
+      padding: 2.5rem 1.2rem;
+      margin: 0.5rem auto;
     }
   }
   
@@ -200,6 +243,15 @@
       animation-iteration-count: 1 !important;
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
+    }
+
+    .scroll-reveal,
+    .scroll-reveal-left,
+    .scroll-reveal-right,
+    .scroll-reveal-scale {
+      opacity: 1;
+      transform: none;
+      filter: none;
     }
   }
   

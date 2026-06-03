@@ -29,12 +29,28 @@ class CaseComponent {
 
     // Renderizar estadísticas clave
     if (this.statsContainer && caseData.stats) {
-      this.statsContainer.innerHTML = caseData.stats.map(stat => `
-        <div class="case-stat-card">
-          <div class="case-stat-value" style="color: ${stat.color}">${stat.value}</div>
-          <div class="case-stat-label">${stat.label}</div>
-        </div>
-      `).join('');
+      this.statsContainer.innerHTML = caseData.stats.map((stat, index) => {
+        let bgStyle = '';
+        let labelStyle = '';
+        
+        if (index === 0) {
+          bgStyle = 'background: #121212; border: 1px solid rgba(255,255,255,0.08);';
+          labelStyle = 'color: rgba(255,255,255,0.75);';
+        } else if (index === 1) {
+          bgStyle = 'background: #8A4E23; border: 1px solid rgba(255,255,255,0.08);';
+          labelStyle = 'color: rgba(255,255,255,0.75);';
+        } else {
+          bgStyle = 'background: #F4F1EA; border: 1px solid rgba(0,0,0,0.06);';
+          labelStyle = 'color: #5A5A58;';
+        }
+
+        return `
+          <div class="case-stat-card" style="${bgStyle}">
+            <div class="case-stat-value" style="color: ${stat.color}; font-weight: 800;">${stat.value}</div>
+            <div class="case-stat-label" style="${labelStyle}">${stat.label}</div>
+          </div>
+        `;
+      }).join('');
     }
 
     // Imagen/Infografía
