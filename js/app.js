@@ -63,6 +63,7 @@ class App {
         { name: 'game', class: GameComponent },
         { name: 'comic', class: ComicComponent },
         { name: 'countdown', class: CountdownComponent },
+        { name: 'podcast', class: PodcastComponent },
         { name: 'gallery', class: GalleryComponent },
         { name: 'social', class: SocialComponent },
         { name: 'credits', class: CreditsComponent },
@@ -100,7 +101,9 @@ class App {
         '.contact-container',
         '.contact-info',
         '.case-stat-card',
-        '.comic-page-preview'
+        '.comic-page-preview',
+        '.podcast-player-card',
+        '.podcast-playlist-card'
       ];
 
       const elements = document.querySelectorAll(revealSelectors.join(', '));

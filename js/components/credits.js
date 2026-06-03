@@ -29,11 +29,9 @@ class CreditsComponent {
               aria-label="Foto de ${member.name}"
               onerror="this.style.backgroundColor='var(--color-accent-light)'"
             ></div>
-            <h3 style="color: white;">${member.name}</h3>
-            <p class="credit-role" style="color: var(--color-accent); font-weight: 600; margin-bottom: 0.5rem;">
-              ${member.role}
-            </p>
-            <small style="color: rgba(255,255,255,0.6);">${member.bio}</small>
+            <h3>${member.name}</h3>
+            <p class="credit-role">${member.role}</p>
+            <small>${member.bio}</small>
           </div>
         `)
         .join('');

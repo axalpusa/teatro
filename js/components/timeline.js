@@ -4,8 +4,8 @@
  */
 class TimelineComponent {
     constructor() {
-      this.container = document.querySelector('#timeline .timeline-vertical');
-      this.title = document.querySelector('.timeline-section-title');
+      this.container = document.querySelector('#cronologia .timeline-vertical');
+      this.title = document.querySelector('.cronologia-section-title');
       this.items = [];
       this.observer = null;
     }
@@ -19,13 +19,13 @@ class TimelineComponent {
     render() {
       // Título
       if (this.title) {
-        this.title.textContent = CONFIG.sectionTitles.timeline;
+        this.title.textContent = CONFIG.sectionTitles.cronologia;
       }
   
       // Items
       if (!this.container) return;
       
-      this.container.innerHTML = CONFIG.timeline
+      this.container.innerHTML = CONFIG.cronologia
         .map(item => this.createTimelineItem(item))
         .join('');
       

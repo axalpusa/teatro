@@ -20,15 +20,16 @@ const CONFIG = {
 
   // Títulos de las secciones
   sectionTitles: {
-    timeline: "Línea de tiempo",
+    cronologia: "Cronología",
     case: "El caso",
     reportaje: "Reportaje",
     game: "Gamificación",
-    comic: "Comic",
+    comic: "Cómic",
     gallery: "Galería de fotos",
     social: "Redes",
     credits: "Créditos",
-    contact: "Contàctanos"
+    contact: "Contáctanos",
+    podcast: "Podcast"
   },
 
   // Hero / Portada
@@ -51,8 +52,8 @@ const CONFIG = {
     conclusion: "El principal cuestionamiento ciudadano radica en la falta de transparencia sobre las reformulaciones del proyecto y el destino final de los recursos adicionales. Organizaciones civiles han solicitado una auditoría forense detallada."
   },
 
-  // Línea de tiempo
-  timeline: [
+  // Cronología
+  cronologia: [
     {
       date: "2021",
       title: "El origen y la primera estimación",
@@ -156,6 +157,41 @@ const CONFIG = {
     title: "Próxima experiencia física"
   },
 
+  // Podcast
+  podcast: {
+    title: "Voces bajo el telón",
+    subtitle: "Escucha las entrevistas completas y los informes de investigación en formato de audio.",
+    episodes: [
+      {
+        id: 1,
+        title: "Episodio 1: El presupuesto fantasma",
+        description: "Analizamos cómo el presupuesto del teatro pasó de 39 a más de 90 millones de soles sin explicaciones claras.",
+        duration: "12:45",
+        date: "15 de Mayo, 2026",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3",
+        cover: "img/601.jpg"
+      },
+      {
+        id: 2,
+        title: "Episodio 2: La voz de los vecinos",
+        description: "Conversamos con dirigentes vecinales y colectivos ciudadanos sobre las observaciones del proyecto.",
+        duration: "18:20",
+        date: "22 de Mayo, 2026",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3",
+        cover: "img/602.jpg"
+      },
+      {
+        id: 3,
+        title: "Episodio 3: El futuro del escenario",
+        description: "Entrevista exclusiva con ingenieros y arquitectos sobre la viabilidad técnica y los plazos de entrega.",
+        duration: "15:10",
+        date: "29 de Mayo, 2026",
+        audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3",
+        cover: "img/604.jpg"
+      }
+    ]
+  },
+
   // Galería de imágenes
   gallery: [
     "img/611.jpg",
@@ -172,15 +208,15 @@ const CONFIG = {
 
   // Equipo creativo
   team: [
-    { name: "Silupu Arana, Darly", role: "Dirección", bio: ".", avatar: "img/68.jpg" },
+    { name: "Silupú Arana, Darly", role: "Dirección", bio: ".", avatar: "img/68.jpg" },
     { name: "Puelles Saavedra, Augusto", role: "Productor", bio: ".", avatar: "img/32.jpg" },
-    { name: "Rimaycuna Peña, Mallely", role: "Investigación, guión", bio: ".", avatar: "img/44.jpg" },
-    { name: "Marroquin Flores, Gresly", role: "Guionista, comic", bio: ".", avatar: "img/68.jpg" },
-    { name: "Vicente Jimenez, Renzo", role: "Cámara", bio: ".", avatar: "img/32.jpg" },
+    { name: "Rimaycuna Peña, Mallely", role: "Investigación, Guion", bio: ".", avatar: "img/44.jpg" },
+    { name: "Marroquín Flores, Gresly", role: "Guionista, Cómic", bio: ".", avatar: "img/68.jpg" },
+    { name: "Vicente Jiménez, Renzo", role: "Cámara", bio: ".", avatar: "img/32.jpg" },
     { name: "Litano Talledo, Rodrigo", role: "Asistente de cámara", bio: ".", avatar: "img/44.jpg" },
     { name: "Ludeña Muro, Gabriele", role: "Edición", bio: ".", avatar: "img/68.jpg" },
-    { name: "Farias Cornejo, Luciana", role: "Redes sociales", bio: ".", avatar: "img/32.jpg" },
-    { name: "Velasquez Peña, Thalia", role: "Diseño web, guión", bio: ".", avatar: "img/44.jpg" },
+    { name: "Farías Cornejo, Luciana", role: "Redes sociales", bio: ".", avatar: "img/32.jpg" },
+    { name: "Velásquez Peña, Thalía", role: "Diseño web, Guion", bio: ".", avatar: "img/44.jpg" },
     { name: "Palacios Ruesta, Favio", role: "Gamificación", bio: ".", avatar: "img/44.jpg" }
   ],
 
@@ -193,16 +229,17 @@ const CONFIG = {
   // Navegación
   navLinks: [
     { id: "inicio", name: "Inicio" },
-    { id: "timeline", name: "Línea de tiempo" },
-    { id: "el-caso", name: "Caso" },
     { id: "reportaje", name: "Reportaje" },
+    { id: "cronologia", name: "Cronología" },
+    { id: "el-caso", name: "Caso" },
     { id: "gamificacion", name: "Gamificación" },
-    { id: "comic", name: "Comic" },
+    { id: "comic", name: "Cómic" },
     { id: "countdown", name: "Experiencia" },
+    { id: "podcast", name: "Podcast" },
     { id: "galeria", name: "Galería" },
     { id: "redes", name: "Redes" },
     { id: "creditos", name: "Créditos" },
-    { id: "contact", name: "Contàctanos" }
+    { id: "contact", name: "Contáctanos" }
   ]
 };
 

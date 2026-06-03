@@ -41,13 +41,26 @@
       <div class="hero-content">
         <h1 class="hero-title"></h1>
         <p class="hero-subtitle"></p>
-        <a href="#timeline" class="btn hero-btn"></a>
+        <a href="#cronologia" class="btn hero-btn"></a>
       </div>
     </section>
 
-    <!-- Timeline -->
-    <section id="timeline">
-      <h2 class="section-title timeline-section-title"></h2>
+    <!-- Reportaje / Revista Digital -->
+    <section id="reportaje">
+      <h2 class="section-title reportaje-section-title"></h2>
+      <div class="reportaje-destacado" id="openReportajeModal">
+        <img class="reportaje-hero-img" alt="Reportaje destacado">
+        <div class="reportaje-texto">
+          <h3 class="reportaje-title"></h3>
+          <p class="reportaje-preview"></p>
+          <span class="leer-mas"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Cronología -->
+    <section id="cronologia">
+      <h2 class="section-title cronologia-section-title"></h2>
       <div class="timeline-vertical"></div>
     </section>
 
@@ -61,19 +74,6 @@
         </div>
         <div class="case-image">
           <img src="" alt="Infografía del caso" class="case-img">
-        </div>
-      </div>
-    </section>
-
-    <!-- Reportaje / Revista Digital -->
-    <section id="reportaje">
-      <h2 class="section-title reportaje-section-title"></h2>
-      <div class="reportaje-destacado" id="openReportajeModal">
-        <img class="reportaje-hero-img" alt="Reportaje destacado">
-        <div class="reportaje-texto">
-          <h3 class="reportaje-title"></h3>
-          <p class="reportaje-preview"></p>
-          <span class="leer-mas"></span>
         </div>
       </div>
     </section>
@@ -133,6 +133,12 @@
         </div>
         <p class="countdown-event"></p>
       </div>
+    </section>
+
+    <!-- Podcast -->
+    <section id="podcast">
+      <h2 class="section-title podcast-title"></h2>
+      <div class="podcast-container"></div>
     </section>
 
     <!-- Galería -->
@@ -247,6 +253,7 @@
   <script src="js/components/game.js"></script>
   <script src="js/components/comic.js"></script>
   <script src="js/components/countdown.js"></script>
+  <script src="js/components/podcast.js"></script>
   <script src="js/components/gallery.js"></script>
   <script src="js/components/social.js"></script>
   <script src="js/components/credits.js"></script>
