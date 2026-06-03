@@ -28,7 +28,7 @@ const CONFIG = {
     gallery: "Galería de fotos",
     social: "Redes",
     credits: "Créditos",
-    contact: "Contactanos"
+    contact: "Contàctanos"
   },
 
   // Hero / Portada
@@ -203,7 +203,7 @@ const CONFIG = {
     { id: "galeria", name: "Galería de fotos" },
     { id: "redes", name: "Redes" },
     { id: "creditos", name: "Créditos" },
-    { id: "contact", name: "Contactanos" }
+    { id: "contact", name: "Contàctanos" }
   ]
 };
 
